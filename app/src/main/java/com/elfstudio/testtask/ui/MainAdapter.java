@@ -138,7 +138,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @SuppressLint("SetTextI18n")
         private void bind(List<Hit> data) {
             if (data != null) {
-                binding.tvTitle.setText(getAdapterPosition() + "  " + data.get(getAdapterPosition()).getTitle());
+                binding.tvTitle.setText(data.get(getAdapterPosition()).getTitle());
                 binding.checkbox.setChecked(data.get(getAdapterPosition()).isChecked());
                 binding.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
