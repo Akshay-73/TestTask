@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.elfstudio.testtask.application.App;
+import com.elfstudio.testtask.model.Hit;
 import com.elfstudio.testtask.model.SearchedData;
 import com.elfstudio.testtask.utils.ApiUtils;
 
@@ -24,6 +25,7 @@ public class MainViewModel extends AndroidViewModel {
     private MutableLiveData<String> liveMessage;
     private MutableLiveData<SearchedData> searchedDataMutableLiveData;
     private Map<Integer, Boolean> checks;
+    private Map<Integer, Hit> searchedData;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -37,6 +39,13 @@ public class MainViewModel extends AndroidViewModel {
         return checks;
     }
 
+    public Map<Integer, Hit> getSearchedData() {
+        if (searchedData == null) {
+            searchedData = new HashMap<>();
+        }
+        return searchedData;
+    }
+
     public MutableLiveData<String> getLiveMessage() {
         if (liveMessage == null) {
             liveMessage = new MutableLiveData<>();
@@ -44,11 +53,11 @@ public class MainViewModel extends AndroidViewModel {
         return liveMessage;
     }
 
-    MutableLiveData<SearchedData> getData() {
+    MutableLiveData<SearchedData> getData(int page) {
         searchedDataMutableLiveData = new MutableLiveData<>();
         if (ApiUtils.checkInternet(application))
             App.getInstance().getApi()
-                    .getSearchedData()
+                    .getSearchedData("story", page)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.single())
                     .subscribe(new Observer<SearchedData>() {

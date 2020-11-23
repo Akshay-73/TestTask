@@ -59,7 +59,7 @@ public class Hit extends BaseObservable {
     @Expose
     private HighlightResult highlightResult;
 
-    private boolean isChecked;
+    private boolean isChecked = false;
 
     public String getCreatedAt() {
         return createdAt;
